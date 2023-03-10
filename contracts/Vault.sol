@@ -11,7 +11,10 @@ contract Vault {
 
     function redeem() external payable Lock {
         uint withDrawAmount = voucher[msg.sender];
-        payable(msg.sender).call{value: withDrawAmount}("");
+        (bool success,) = payable(msg.sender).call{
+            value: withDrawAmount
+        }("");
+        require(success);
         voucher[msg.sender] = 0;
     }
 

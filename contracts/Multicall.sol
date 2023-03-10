@@ -7,11 +7,15 @@ contract Multicall {
         bytes callData;
     }
 
-    function aggregate(Call[] memory calls) external returns (uint blockNumber, bytes[] memory returnData) {
+    function aggregate(
+        Call[] memory calls
+    ) external returns (uint blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
         returnData = new bytes[](calls.length);
         for (uint i = 0; i < calls.length; i++) {
-            (bool success, bytes memory ret) = calls[i].target.call(calls[i].callData);
+            (bool success, bytes memory ret) = calls[i].target.call(
+                calls[i].callData
+            );
             require(success);
             returnData[i] = ret;
         }
@@ -22,7 +26,9 @@ contract Multicall {
         balance = addr.balance;
     }
 
-    function getBlockHash(uint blockNumber) external view returns (bytes32 blockHash) {
+    function getBlockHash(
+        uint blockNumber
+    ) external view returns (bytes32 blockHash) {
         blockHash = blockhash(blockNumber);
     }
 
@@ -34,7 +40,11 @@ contract Multicall {
         timestamp = block.timestamp;
     }
 
-    function getCurrentBlockDifficulty() external view returns (uint difficulty) {
+    function getCurrentBlockDifficulty()
+        external
+        view
+        returns (uint difficulty)
+    {
         difficulty = block.difficulty;
     }
 
@@ -42,7 +52,11 @@ contract Multicall {
         gaslimit = block.gaslimit;
     }
 
-    function getCurrentBlockCoinbase() external view returns (address coinbase) {
+    function getCurrentBlockCoinbase()
+        external
+        view
+        returns (address coinbase)
+    {
         coinbase = block.coinbase;
     }
 }
